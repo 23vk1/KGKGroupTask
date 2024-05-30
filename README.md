@@ -41,22 +41,56 @@ Follow these steps to set up and test the project:
 ## API Endpoints
 ### Users:
 - `POST /users/register`: Register a new user.
+      - body
+         {
+            "username":"xyz",
+            "email":"xyz@gmail.com",
+            "password":"1234",
+            "role":"admin"
+         }
+
 - `POST /users/login`: Authenticate a user and return a token.
+      - body 
+         {
+            "email":"xyz@gmail.com",
+            "password":"1234"
+         }
+
 - `GET /users/profile`: Get the profile of the logged-in user.
 
 ### Items:
 - `GET /items`: Retrieve all auction items (with pagination).
 - `GET /items/:id`: Retrieve a single auction item by ID.
 - `POST /items`: Create a new auction item. (Authenticated users, image upload)
+      - body 
+      {
+         "name": "vintage watch",
+         "description": "A rare vintage watch from the 1950s.",
+         "starting_price": 150.00,
+         "image_url": "http://example.com/images/vintage-watch.jpg",
+         "auction_end_time": "2024-06-30T23:59:59.000Z"
+      }
+
 - `PUT /items/:id`: Update an auction item by ID. (Authenticated users, only item owners or admins)
+         - body 
+         {
+            "new_price":1000
+         }      
+
 - `DELETE /items/:id`: Delete an auction item by ID. (Authenticated users, only item owners or admins)
 
 ### Bids:
 - `GET /items/:itemId/bids`: Retrieve all bids for a specific item.
 - `POST /items/:itemId/bids`: Place a new bid on a specific item. (Authenticated users)
+      - body 
+         {
+            "item_id":3,
+            "bid_amount":175
+         }
 
 ### Notifications:
 - `GET /notifications`: Retrieve notifications for the logged-in user.
 - `POST /notifications/mark-read`: Mark notifications as read.
+      -- no need for body 
 
 
