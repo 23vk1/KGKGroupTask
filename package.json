@@ -16,7 +16,8 @@
     "passport-jwt": "^4.0.1",
     "pg": "^8.11.5",
     "sequelize": "^6.37.3",
-    "socket.io": "^4.7.5"
+    "socket.io": "^4.7.5",
+    "winston": "^3.13.0"
   },
   "name": "kgkgrouptask",
   "description": "This is Task Given by KGK Group",
