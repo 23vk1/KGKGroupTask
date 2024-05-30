@@ -6,6 +6,23 @@ const User = require('../models/User');
 require('dotenv').config();
 
 
+router.get('/profile', auth, async (req, res) => {
+  try {
+    const user = await User.findByPk(req.user.id, {
+      attributes: ['id', 'username', 'email', 'role', 'createdAt'],
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
 router.post('/register', async (req, res) => {
     const { username, email, password, role } = req.body;
     try {

@@ -4,6 +4,7 @@ const socketIo = require('socket.io');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 
 require('dotenv').config();
 const passport = require('passport');
@@ -28,6 +29,7 @@ const io = socketIo(server,{
 app.use(bodyParser.json());
 // app.use(cors());
 app.use(cookieParser());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // passport middelware
 app.use(passport.initialize());

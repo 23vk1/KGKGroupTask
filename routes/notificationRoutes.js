@@ -8,7 +8,6 @@ const Notification = require('../models/Notification');
 
 router.get('/', auth, async (req, res) => {
     try {
-      console.log(req.user.id);
       const notifications = await Notification.findAll({
         where: { user_id: req.user.id },
         order: [['created_at', 'DESC']],
