@@ -4,16 +4,16 @@ const libMoment = require('moment');
 const libFs = require('fs');
 const libPath = require('path');
 
-const util = {}
+const logger = {}
 
-util.logColorPicker = {
+logger.logColorPicker = {
     0: libChalk.white,
     1: libChalk.green,
     2: libChalk.yellow,
     3: libChalk.red
 }
 
-util.logSignPicker = {
+logger.logSignPicker = {
     0: "[*]",// for comman message
     1: "[+]",// for success message
     2: "[!]",// for warning messsage
@@ -24,7 +24,7 @@ util.logSignPicker = {
 
 const logFilePath = `${libPath.join(process.cwd(), "logs", `${libMoment().format("DD-MM-YYYY")}.log`)}`
 
-util.logger = (msg, escalation = 0) => {
+logger.logs = (msg, escalation = 0) => {
     const log = `\n${util.logSignPicker[escalation]} ${libMoment().format("DD-MM-YYYY H:mm:ss")} ${msg}`;
 
     // to check for log file if existed
@@ -41,4 +41,4 @@ util.logger = (msg, escalation = 0) => {
 }
 
 
-module.exports.libUtil = util
+module.exports.logger = logger

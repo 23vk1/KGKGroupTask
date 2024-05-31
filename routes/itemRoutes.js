@@ -3,7 +3,7 @@ const router = express.Router();
 const Item = require('../models/Item');
 const auth = require('../middlewares/auth');
 const upload = require('../middlewares/upload');
-const { libUtil } = require('./utils');
+const { logger } = require('./logger');
 
 
 
@@ -15,7 +15,7 @@ router.get('/', auth, async (req, res) => {
         res.json(items);
     } catch (err) {
         // customize this log as suitable 
-        libUtil.logger("error message of itemrouter", 3);
+        logger.logs("error message of itemrouter", 3);
         res.status(500).json({ error: err.message });
     }
 });
@@ -28,7 +28,7 @@ router.get('/:id', auth, async (req, res) => {
         });
         res.json(items);
     } catch (err) {
-        libUtil.logger("error message of itemrouter", 3);
+        logger.logs("error message of itemrouter", 3);
         res.status(500).json({ error: err.message });
     }
 });
@@ -49,7 +49,7 @@ router.post('/', auth, upload, async (req, res) => {
         res.status(201).json(newItem);
     }
     catch (err) {
-        libUtil.logger("error message of itemrouter", 3);
+        logger.logs("error message of itemrouter", 3);
         res.status(400).json({ error: err.message });
     }
 });
@@ -61,14 +61,14 @@ router.put('/:id', auth, async (req, res) => {
             where: { id: req.params.id, user_id: req.user.id },
         });
         if (!item) {
-            libUtil.logger("Item not found", 3);
+            logger.logs("Item not found", 3);
             return res.status(404).json({ error: 'item not found' });
         }
         item.current_price = new_price;
         await item.save();
         res.json(item);
     } catch (err) {
-        libUtil.logger("error message of itemrouter", 3);
+        logger.logs("error message of itemrouter", 3);
         res.status(500).json({ error: err.message });
     }
 });
@@ -83,14 +83,14 @@ router.delete('/:id', auth, async (req, res) => {
             where: { id: req.params.id, user_id: req.user.id },
         });
         if (!item) {
-            libUtil.logger("Item not found", 3);
+            logger.logs("Item not found", 3);
             return res.status(404).json({ error: 'Item not found' });
         }
         await item.destroy();
-        libUtil.logger("Item deleted successfully", 1);
+        logger.logs("Item deleted successfully", 1);
         res.status(200).json({ message: 'Item deleted successfully' });
     } catch (err) {
-        libUtil.logger("error message of itemrouter", 3);
+        logger.logs("error message of itemrouter", 3);
         res.status(500).json({ error: err.message });
     }
 });
